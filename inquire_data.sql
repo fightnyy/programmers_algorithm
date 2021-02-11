@@ -54,3 +54,52 @@ SELECT NAME
 FROM ANIMAL_INS
 WHERE DATETIME 
 LIMIT 1
+
+
+-- 최댓값 구하기 The MAX() function returns the maximum value in a set of values.
+-- 코드를 입력하세요
+SELECT MAX(DATETIME)
+FROM ANIMAL_INS
+
+
+-- 코드를 입력하세요  The MIN() function returns the minimum value in a set of values.
+SELECT MIN(DATETIME)
+FROM ANIMAL_INS
+
+--숫자 세기
+-- 코드를 입력하세요
+SELECT count(*)
+FROM ANIMAL_INS
+
+
+
+-- 코드를 입력하세요
+-- distinct 는 중복 제거
+SELECT count(distinct NAME)
+FROM ANIMAL_INS
+
+-- 코드를 입력하세요
+-- ORDER BY는 가장 마지막에 위치하지만 LIMIT보다는 앞에 위치해야함
+SELECT ANIMAL_TYPE,count(*)
+FROM ANIMAL_INS
+GROUP BY ANIMAL_TYPE
+ORDER BY ANIMAL_TYPE
+
+-- DATETIME TYPE FIELD 에서 데이터를 얻어내는 방법
+-- 코드를 입력하세요
+SELECT HOUR(DATETIME) as HOUR, COUNT(*) as COUNT
+FROM ANIMAL_OUTS
+GROUP BY HOUR
+HAVING HOUR >= 9 and HOUR < 20
+ORDER BY HOUR
+
+
+
+-- 코드를 입력하세요
+-- 지역변수 set @hour의 존재 앎
+set @hour := -1;
+
+select (@hour := @hour+1) as HOUR, 
+(select count(*) from ANIMAL_OUTS where HOUR(DATETIME) = @hour) as COUNT
+from ANIMAL_OUTS
+where @hOUR<23;
