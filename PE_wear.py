@@ -71,3 +71,8 @@ def solution(n, lost, reserve):
             stole_n_have.remove(stole)
             
     return n-len(stole_n_have)
+
+
+"""
+풀이3 가장 간단
+"""

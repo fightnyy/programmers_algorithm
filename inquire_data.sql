@@ -103,3 +103,24 @@ select (@hour := @hour+1) as HOUR,
 (select count(*) from ANIMAL_OUTS where HOUR(DATETIME) = @hour) as COUNT
 from ANIMAL_OUTS
 where @hOUR<23;
+
+
+-- null 인것 찾는것
+SELECT ANIMAL_ID
+FROM ANIMAL_INS
+WHERE NAME IS NULL
+
+-- null이 아닌것 찾는것
+SELECT ANIMAL_ID
+FROM ANIMAL_INS
+WHERE NAME IS NOT NULL
+
+-- ifnull statement 
+-- 만약 null이 아니면 그냥 이름을 나타내고 null 이면 No name이 나온다.
+SELECT ANIMAL_TYPE, IFNULL(NAME, "No name") AS NAME, SEX_UPON_INTAKE 
+FROM ANIMAL_INS
+
+-- 코드를 입력하세요
+SELECT ANIMAL_TYPE, IF (NAME IS NULL, "No name", NAME)as NAME, SEX_UPON_INTAKE
+FROM ANIMAL_INS
+
