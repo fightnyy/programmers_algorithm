@@ -124,3 +124,51 @@ FROM ANIMAL_INS
 SELECT ANIMAL_TYPE, IF (NAME IS NULL, "No name", NAME)as NAME, SEX_UPON_INTAKE
 FROM ANIMAL_INS
 
+
+/*
+테이블을 볼수 있는 명령어 : show tables;
+테이블의 이름을 바꿀 수 있는 명령어 : Rename tables old_name to new_name
+*/
+
+
+/*
+join 문에 관한 설명
+select *
+from Table_A, Table_B
+이렇게 해서 결과물을 보면 우리가 일반적으로 생각한 join문은 어떤 필드가 같은것끼리 
+연관지어서 나오는것을 생각하는데 결과물을 보면 전혀 그렇지 않고 Table_A의 갯수가 5개 Table_B의 갯수가 3개라고 하면
+총 15개의 결과 물이 나온다. 
+따라서 어떻게 join을 할것인 mysql에게 알려주는 on 을 사용해야한다.
+*/
+
+/*
+animal_ins와 animal_outs를 합쳐
+그런데 기준(ON)은 animal_ins와 animal_outs의 animal_id가 같은것끼리 합치는 거야
+*/
+select *
+from animal_ins
+left join animal_outs
+on animal_ins.animal_id = animal_outs.animal_id
+order by animal_outs.animal_id
+
+
+/*
+ANIMAL_INS 와 ANIMAL_OUTS 에서 ANIMAL_ID가 같은것끼리 우선 묶는데 여기서 
+들어온 날짜보다 나간날짜가 더 늦으면(크면) 이상한것이니까 이것을 뽑아라 
+근데 들어온 날짜가 빠른 순으로 뽑아라
+*/
+SELECT A.ANIMAL_ID, A.NAME
+FROM ANIMAL_INS A JOIN ANIMAL_OUTS B ON A.ANIMAL_ID = B.ANIMAL_ID
+WHERE A.DATETIME > B.DATETIME
+ORDER BY A.DATETIME
+
+
+/*
+ANIMAL 중에 아직 까지 입양 가지 못한것 
+그중에 가장 오랫동안 못간것 
+*/
+SELECT A.NAME, A.DATETIME
+FROM ANIMAL_INS A LEFT JOIN ANIMAL_OUTS B ON B.ANIMAL_ID = A.ANIMAL_ID
+WHERE B.ANIMAL_ID IS NULL
+ORDER BY A.DATETIME
+LIMIT 3
