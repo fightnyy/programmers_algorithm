@@ -27,4 +27,4 @@ def solution(relation):
             if len(set(final[i])) == len(set(final[i]).intersection(set(final[j]))):
                 answer.discard(final[j])
                 
-    return len(answer)
+    return len(answer)ㅈ
