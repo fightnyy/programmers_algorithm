@@ -38,7 +38,7 @@ def solution(participant, completion):
 
 """
 3 차 풀이
-collections 는 빼기가 된다!
+Counter 는 빼기가 된다!
 """ 
 import collections
 
